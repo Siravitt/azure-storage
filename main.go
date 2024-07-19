@@ -40,7 +40,8 @@ func main() {
 	handler := hdl.NewHandler(srv)
 
 	e.GET("/health", handler.Health)
-	e.POST("/signed-url", handler.GenerateSAS)
+	e.POST("/signed-url-upload", handler.GenerateSASUpload)
+	e.POST("/signed-url-read", handler.GenerateSASRead)
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
