@@ -9,9 +9,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Siravitt/azure-storage/handler"
-	"github.com/Siravitt/azure-storage/repository"
-	"github.com/Siravitt/azure-storage/service"
+	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob"
+	"github.com/joho/godotenv"
+
+	hdl "github.com/Siravitt/azure-storage/handler"
+	repo "github.com/Siravitt/azure-storage/repository"
+	srv "github.com/Siravitt/azure-storage/service"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
@@ -19,21 +22,25 @@ import (
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("load .env error: %v", err)
+	}
+
 	e := echo.New()
 
 	e.Logger.SetLevel(log.INFO)
 
-	db, err := initDatabase()
-	if err != nil {
-		log.Fatalf("connect to database error: %s", err)
-	}
-	_ = db
+	// sqlite database
+	db := connectDatabase()
+	client := createAzureClient()
 
-	repo := repository.NewRepository(db)
-	srv := service.NewService(repo)
-	handler := handler.NewHandler(srv)
+	repo := repo.NewRepository(db)
+	srv := srv.NewService(repo, client)
+	handler := hdl.NewHandler(srv)
 
 	e.GET("/health", handler.Health)
+	e.POST("/signed-url", handler.GenerateSAS)
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
@@ -61,13 +68,22 @@ func main() {
 	}
 }
 
-func initDatabase() (*sql.DB, error) {
+func connectDatabase() *sql.DB {
 	// os.Remove("./database/user.sqlite")
 
 	db, err := sql.Open("sqlite3", "./database/user.sqlite")
 	if err != nil {
-		return nil, err
+		log.Fatalf("connect to database error: %v", err)
 	}
-	return db, nil
+	return db
+}
 
+func createAzureClient() *azblob.Client {
+	connectionStr := os.Getenv("AZURE_STORAGE_CONNECTION")
+
+	client, err := azblob.NewClientFromConnectionString(connectionStr, nil)
+	if err != nil {
+		log.Fatalf("NewClientFromConnectionString error: %s", err)
+	}
+	return client
 }
