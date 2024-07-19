@@ -11,4 +11,5 @@ func NewRepository(db *sql.DB) Repository {
 }
 
 type Repository interface {
+	// TODO: insert data to db
 }

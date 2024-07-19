@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func (h handler) GenerateSAS(c echo.Context) error {
+func (h handler) GenerateSASUpload(c echo.Context) error {
 	req := model.GenerateSASRequest{}
 
 	err := c.Bind(&req)
@@ -17,7 +17,7 @@ func (h handler) GenerateSAS(c echo.Context) error {
 		return c.JSON(echo.ErrBadRequest.Code, nil)
 	}
 
-	resp, err := h.srv.GenerateSAS(req)
+	resp, err := h.srv.GenerateSASUpload(req)
 	if err != nil {
 		return c.JSON(echo.ErrInternalServerError.Code, nil)
 	}

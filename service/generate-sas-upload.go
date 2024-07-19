@@ -8,12 +8,11 @@ import (
 	"github.com/Siravitt/azure-storage/model"
 )
 
-func (s service) GenerateSAS(req model.GenerateSASRequest) (*model.GenerateSASResponse, error) {
+func (s service) GenerateSASUpload(req model.GenerateSASRequest) (*model.GenerateSASResponse, error) {
 	containerClient := s.client.ServiceClient().NewContainerClient(req.ContainerName)
 	blobClient := containerClient.NewBlobClient(req.FileName)
 
 	permission := sas.BlobPermissions{
-		Read:   true,
 		Add:    true,
 		Create: true,
 		Write:  true,

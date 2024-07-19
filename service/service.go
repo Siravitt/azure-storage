@@ -21,7 +21,7 @@ func NewService(repo repository.Repository, client *azblob.Client) Service {
 }
 
 type Service interface {
-	GenerateSAS(req model.GenerateSASRequest) (*model.GenerateSASResponse, error)
+	GenerateSASUpload(req model.GenerateSASRequest) (*model.GenerateSASResponse, error)
 	CreateContainer(ctx context.Context, req model.CreateContainerRequest) error
 	DeleteContainer(ctx context.Context, req model.DeleteContainerRequest) error
 }

@@ -15,5 +15,5 @@ func NewHandler(srv service.Service) Handler {
 
 type Handler interface {
 	Health(c echo.Context) error
-	GenerateSAS(c echo.Context) error
+	GenerateSASUpload(c echo.Context) error
 }
