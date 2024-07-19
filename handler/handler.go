@@ -17,4 +17,5 @@ type Handler interface {
 	Health(c echo.Context) error
 	GenerateSASUpload(c echo.Context) error
 	GenerateSASRead(c echo.Context) error
+	CreateContainer(c echo.Context) error
 }
