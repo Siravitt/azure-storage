@@ -19,4 +19,5 @@ type Handler interface {
 	GenerateSASRead(c echo.Context) error
 	CreateContainer(c echo.Context) error
 	DeleteContainer(c echo.Context) error
+	BlobContainerList(c echo.Context) error
 }

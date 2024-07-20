@@ -9,7 +9,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func (h handler) DeleteContainer(c echo.Context) error {
+func (h handler) BlobContainerList(c echo.Context) error {
 	ctx := context.Background()
 
 	req := model.ContainerRequest{}
@@ -20,10 +20,10 @@ func (h handler) DeleteContainer(c echo.Context) error {
 		return c.JSON(echo.ErrBadRequest.Code, nil)
 	}
 
-	err = h.srv.DeleteContainer(ctx, req)
+	resp, err := h.srv.BlobContainerList(ctx, req)
 	if err != nil {
 		return c.JSON(echo.ErrInternalServerError.Code, nil)
 	}
 
-	return c.JSON(http.StatusOK, nil)
+	return c.JSON(http.StatusOK, resp)
 }

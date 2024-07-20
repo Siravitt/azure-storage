@@ -44,6 +44,7 @@ func main() {
 	e.POST("/signed-url-read", handler.GenerateSASRead)
 	e.POST("/create-container", handler.CreateContainer)
 	e.POST("/delete-container", handler.DeleteContainer)
+	e.POST("/blob-container-list", handler.BlobContainerList)
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},

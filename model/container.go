@@ -1,9 +1,9 @@
 package model
 
-type CreateContainerRequest struct {
+type ContainerRequest struct {
 	ContainerName string `json:"containerName"`
 }
 
-type DeleteContainerRequest struct {
-	ContainerName string `json:"containerName"`
+type BlobContainerListResponse struct {
+	BlobName []string `json:"blobName"`
 }

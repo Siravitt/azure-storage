@@ -12,7 +12,7 @@ import (
 func (h handler) CreateContainer(c echo.Context) error {
 	ctx := context.Background()
 
-	req := model.CreateContainerRequest{}
+	req := model.ContainerRequest{}
 
 	err := c.Bind(&req)
 	if err != nil {

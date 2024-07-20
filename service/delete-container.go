@@ -7,7 +7,7 @@ import (
 	"github.com/Siravitt/azure-storage/model"
 )
 
-func (s service) DeleteContainer(ctx context.Context, req model.DeleteContainerRequest) error {
+func (s service) DeleteContainer(ctx context.Context, req model.ContainerRequest) error {
 	_, err := s.client.DeleteContainer(ctx, req.ContainerName, nil)
 	if err != nil {
 		log.Fatalf("DeleteContainer error: %s", err)
