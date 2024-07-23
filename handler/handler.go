@@ -20,4 +20,5 @@ type Handler interface {
 	CreateContainer(c echo.Context) error
 	DeleteContainer(c echo.Context) error
 	BlobContainerList(c echo.Context) error
+	BlobDownload(c echo.Context) error
 }

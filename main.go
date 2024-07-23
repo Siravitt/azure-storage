@@ -45,6 +45,7 @@ func main() {
 	e.POST("/create-container", handler.CreateContainer)
 	e.POST("/delete-container", handler.DeleteContainer)
 	e.POST("/blob-container-list", handler.BlobContainerList)
+	e.POST("/blob-download", handler.BlobDownload)
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},

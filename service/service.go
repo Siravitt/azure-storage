@@ -1,6 +1,7 @@
 package service
 
 import (
+	"bytes"
 	"context"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob"
@@ -26,4 +27,5 @@ type Service interface {
 	CreateContainer(ctx context.Context, req model.ContainerRequest) error
 	DeleteContainer(ctx context.Context, req model.ContainerRequest) error
 	BlobContainerList(ctx context.Context, req model.ContainerRequest) (*model.BlobContainerListResponse, error)
+	BlobDownload(ctx context.Context, req model.BlobDownloadRequest) (*bytes.Buffer, error)
 }
