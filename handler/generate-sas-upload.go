@@ -17,6 +17,10 @@ func (h handler) GenerateSASUpload(c echo.Context) error {
 		return c.JSON(echo.ErrBadRequest.Code, nil)
 	}
 
+	if req.ContentType != "application/pdf" {
+		return c.JSON(echo.ErrBadRequest.Code, "mismatch content-type")
+	}
+
 	resp, err := h.srv.GenerateSASUpload(req)
 	if err != nil {
 		return c.JSON(echo.ErrInternalServerError.Code, nil)

@@ -1,6 +1,7 @@
 package model
 
 type GenerateSASRequest struct {
+	ContentType   string `json:"contentType"`
 	ContainerName string `json:"containerName"`
 	FileName      string `json:"fileName"`
 }
